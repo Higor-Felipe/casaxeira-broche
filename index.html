@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casaxeira - Broche Exclusivo</title>
-  <link rel="icon" href="logo-casaxeira.png">
+  <link rel="icon" href="casaxeira3.png">
   <style>
     :root {
-      --verde: #25D366;
+      --verde: #004b2e;
       --verde-escuro: #128C7E;
       --branco: #ffffff;
       --cinza-claro: #f5f5f5;
@@ -19,6 +19,7 @@
       background: var(--verde);
       color: white;
       padding: 1.2rem 1rem;
+      display: flex;
     }
 
     /* LOGO + NOME lado a lado */
@@ -33,6 +34,7 @@
     }
     .logo {
       height: 90px;
+      border-radius: 90px;
     }
     .logo img {
       height: 100%;
@@ -171,6 +173,54 @@
       color: white;
       margin-top: 4rem;
     }
+ .carousel-container {
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    overflow: hidden; /* Garante que apenas a imagem atual seja visível */
+}
+
+.carousel-slide img {
+    width: 100%;
+    display: none; /* Oculta todas as imagens por padrão */
+}
+
+/* Exibe apenas a imagem atual */
+.carousel-slide img.active {
+    display: block;
+}
+
+/* Estilo para os botões de navegação */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.8);
+    border: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,1);
+}
   </style>
 </head>
 <body>
@@ -179,10 +229,7 @@
     <div class="header-content">
       <!-- TROQUE AQUI PELA SUA LOGO -->
       <div class="logo">
-        <img src="logo-casaxeira.png" alt="Logo Casaxeira">
-        <!-- Se ainda não tiver a logo, use este placeholder temporário:
-        <img src="https://via.placeholder.com/300x90/ffffff/128C7E?text=CASAXEIRA" alt="Logo">
-        -->
+        <img src="casaxeira3.png" alt="Logo Casaxeira">
       </div>
 
       <div class="titulo-header">
@@ -194,9 +241,61 @@
 
   <div class="container">
     <div class="produto">
-      <!-- TROQUE AQUI PELA FOTO DO SEU BROCHE -->
-      <img src="casaxeira-produto.jpeg" alt="Broche Casaxeira">
-      <div class="info">
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <!-- Imagem 1 -->
+            <img src="casaxeiraP1.jpeg" alt="Imagem 1">
+            <!-- Imagem 2 -->
+            <img src="casaxeiraP2.jpg" alt="Imagem 2">
+            <!-- Imagem 3 -->
+            <img src="casaxeiraP3.jpg" alt="Imagem 3">
+            <img src="casaxeiraP4.jpg" alt="Imagem 4">
+        </div>
+        <!-- Botões de navegação -->
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+
+    <script>
+      let slideIndex = 0;
+showSlides(slideIndex);
+
+// Função para avançar ou retroceder os slides
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+// Funções para os botões "Anterior" e "Próximo"
+function prevSlide() {
+    plusSlides(-1);
+}
+
+function nextSlide() {
+    plusSlides(1);
+}
+
+// Função principal que exibe o slide correto
+function showSlides(n) {
+    let i;
+    let slides = document.querySelectorAll(".carousel-slide img");
+    
+    // Volta ao primeiro slide se passar do último
+    if (n >= slides.length) {slideIndex = 0;}
+    // Vai para o último slide se tentar retroceder do primeiro
+    if (n < 0) {slideIndex = slides.length - 1;}
+    
+    // Oculta todas as imagens
+    for (i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+    }
+    
+    // Exibe a imagem atual
+    slides[slideIndex].classList.add("active");
+}
+
+    </script>
+
+    <div class="info">
         <h2>Broche Casaxeira</h2>
         <p>Peça única e artesanal, perfeita para dar um toque especial ao seu visual.</p>
         <div class="preco">R$ 5,50</div>
@@ -323,6 +422,7 @@ ${pagamento === 'pix' ? 'Já fiz o PIX e vou enviar o comprovante agora!' : 'Pag
       const whatsappUrl = `https://wa.me/5518997962232?text=${encodeURIComponent(mensagem)}`;
       window.open(whatsappUrl, '_blank');
     }
+
   </script>
 </body>
 </html>
